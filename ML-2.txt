@@ -1,0 +1,52 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns 
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.svm import SVC
+from sklearn.metrics import accuracy_score,confusion_matrix,classification_report
+
+df=pd.read_csv('emails.csv')
+df
+df.head()
+df.tail()
+print(df.shape)
+df.isnull().sum()
+
+
+X=df.drop('Prediction',axis=1)
+y=df['Prediction']
+X_train,X_test,y_train,y_test=train_test_split(X,y,test_size=0.2,random_state=42)
+
+sc=StandardScaler()
+X_train=sc.fit_transform(X_train)
+X_test=sc.transform(X_test)
+
+#K-Nearest Neighbors
+model1= KNeighborsClassifier(n_neighbors=5)
+model1.fit(X_train,y_train)
+P1=model1.predict(X_test)
+print("Accuracy:",accuracy_score(y_test,P1))
+print(confusion_matrix(y_test,P1))
+
+#SVM
+model2=SVC()
+model2.fit(X_train,y_train)
+P2=model2.predict(X_test)
+print("Accuracy:",accuracy_score(y_test,P2))
+print(confusion_matrix(y_test,P2))
+
+
+print("KNN Performance")
+print(classification_report(y_test,P1))
+
+print("KNN Performance")
+print(classification_report(y_test,P1))
+
+print("KNN Prediction:")
+print(P1[:10])
+
+print("SVM Prediction:")
+print(P2[:10])
