@@ -42,9 +42,6 @@ print(confusion_matrix(y_test,P2))
 print("KNN Performance")
 print(classification_report(y_test,P1))
 
-print("KNN Performance")
-print(classification_report(y_test,P1))
-
 print("KNN Prediction:")
 print(P1[:10])
 
